@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TN SkyCast | Tamil Nadu District Weather</title>
+    <meta name="description" content="Real-time weather updates for all 38 districts of Tamil Nadu with smart farmer suggestions and dynamic themes.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Mukta+Malar:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-sunny">
+    <div id="app" class="glass-container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i data-lucide="cloud-sun"></i>
+                <h1 id="app-title">TN SkyCast</h1>
+            </div>
+            
+            <div class="controls">
+                <button id="lang-toggle" class="btn-icon" title="Switch Language">
+                    <span class="lang-text">தமிழ்</span>
+                </button>
+                <button id="geo-btn" class="btn-icon" title="Current Location">
+                    <i data-lucide="map-pin"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-box">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="district-input" placeholder="Search Tamil Nadu Districts..." autocomplete="off">
+                <div id="autocomplete-list" class="autocomplete-items"></div>
+            </div>
+            <div id="recent-searches" class="recent-searches">
+                <!-- Search chips will be added here -->
+            </div>
+        </section>
+
+        <!-- Main Weather Display -->
+        <main id="weather-content" class="fade-in">
+            <!-- Skeleton Loading State (hidden by default) -->
+            <div id="skeleton-loader" class="skeleton-container hidden">
+                <div class="skeleton main-card-skeleton"></div>
+                <div class="skeleton forecast-skeleton"></div>
+            </div>
+
+            <!-- Weather Details -->
+            <div id="weather-details" class="weather-grid">
+                <!-- Current Weather Card -->
+                <div class="card current-card glass">
+                    <div class="weather-main">
+                        <div class="location-info">
+                            <h2 id="city-name">Chennai</h2>
+                            <p id="current-date">Tuesday, 21 April</p>
+                        </div>
+                        <div class="temp-container">
+                            <span id="current-temp">32°</span>
+                            <div class="weather-condition">
+                                <i id="weather-icon" data-lucide="sun"></i>
+                                <span id="weather-desc">Sunny</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="weather-stats">
+                        <div class="stat-item">
+                            <i data-lucide="droplets"></i>
+                            <div class="stat-info">
+                                <span class="stat-label" data-en="Humidity" data-ta="ஈரப்பதம்">Humidity</span>
+                                <span id="humidity-val" class="stat-value">65%</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i data-lucide="wind"></i>
+                            <div class="stat-info">
+                                <span class="stat-label" data-en="Wind Speed" data-ta="காற்றின் வேகம்">Wind Speed</span>
+                                <span id="wind-val" class="stat-value">12 km/h</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i data-lucide="thermometer"></i>
+                            <div class="stat-info">
+                                <span class="stat-label" data-en="Feels Like" data-ta="உணர்வு">Feels Like</span>
+                                <span id="feels-like-val" class="stat-value">34°</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Alerts & Suggestions -->
+                <div class="side-panel">
+                    <div id="alert-card" class="card alert-card glass hidden">
+                        <i data-lucide="alert-triangle"></i>
+                        <div class="alert-content">
+                            <h4 id="alert-title">Weather Alert</h4>
+                            <p id="alert-msg">Heatwave warning for the next 2 days.</p>
+                        </div>
+                    </div>
+
+                    <div class="card suggestions-card glass">
+                        <div class="card-header">
+                            <i data-lucide="sprout"></i>
+                            <h4 data-en="Farmer Suggestions" data-ta="விவசாயிகள் ஆலோசனை">Farmer Suggestions</h4>
+                        </div>
+                        <p id="suggestion-text">Ideal time for sowing paddy crops due to upcoming moderate rainfall.</p>
+                    </div>
+                </div>
+
+                <!-- 5-Day Forecast -->
+                <div class="forecast-section">
+                    <h3 data-en="5-Day Forecast" data-ta="5 நாள் முன்னறிவிப்பு">5-Day Forecast</h3>
+                    <div id="forecast-container" class="forecast-grid">
+                        <!-- Forecast items will be added here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 TN SkyCast. Data provided by OpenWeatherMap.</p>
+        </footer>
+    </div>
+
+    <!-- Background Animations Container -->
+    <div id="bg-animations" class="bg-animations"></div>
+
+    <script src="app.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
