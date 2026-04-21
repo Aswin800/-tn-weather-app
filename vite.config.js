@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/-tn-weather-app/', // Replace with your repository name
+  // Use repository name base only when deploying to GitHub Pages
+  base: process.env.GITHUB_ACTIONS ? '/-tn-weather-app/' : '/',
 });
