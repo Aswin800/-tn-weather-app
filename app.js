@@ -187,14 +187,28 @@ function setupEventListeners() {
 
 // 5. API Functions (Refactored to Open-Meteo)
 async function fetchWeather(city) {
-    const coords = DISTRICT_COORDS[city];
-    if (!coords) return;
+    if (!city) return;
     
-    state.city = city;
+    // Find exact or case-insensitive match
+    const normalizedCity = city.trim();
+    const matchedCity = TN_DISTRICTS.find(d => d.toLowerCase() === normalizedCity.toLowerCase());
+    
+    const coords = DISTRICT_COORDS[matchedCity];
+    if (!coords) {
+        // Fallback: If user types part of a name and hits enter, take the first autocomplete suggestion
+        const partialMatch = TN_DISTRICTS.find(d => d.toLowerCase().includes(normalizedCity.toLowerCase()));
+        if (partialMatch) {
+            return fetchWeather(partialMatch);
+        }
+        return;
+    }
+    
+    state.city = matchedCity;
     showLoading(true);
     try {
-        await fetchWeatherByCoords(coords.lat, coords.lon, city);
-        addToRecentSearches(city);
+        await fetchWeatherByCoords(coords.lat, coords.lon, matchedCity);
+        addToRecentSearches(matchedCity);
+        elements.districtInput.value = ''; // Clear input on success
     } catch (err) {
         console.error(err);
         alert(TRANSLATIONS[state.lang].error);
